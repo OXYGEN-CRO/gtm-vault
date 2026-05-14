@@ -18,6 +18,19 @@ One command. After that you have:
 
 Same stack we use to run our own outbound.
 
+## Want the content stack too?
+
+The 10 content skills from [content-vault](https://github.com/timscheuerai/content-vault) (linkedin-copywriter, x-copywriter, youtube-script, long-form, lead-magnet-creator, repurpose, researcher, graphics-designer, launch-video, video-use) install alongside the GTM vault. Run them in the same Claude Code workspace.
+
+```bash
+git clone https://github.com/timscheuerai/content-vault.git \
+  ~/.claude/skills/content-vault
+```
+
+After that, every `/linkedin-copywriter`, `/repurpose`, `/researcher` call writes its outputs to the same Notion Content DB and Oxygen workspace as your outbound runs. Inbound and outbound, one install.
+
+Full content-vault docs: [github.com/timscheuerai/content-vault](https://github.com/timscheuerai/content-vault).
+
 ## Two ways to run this
 
 **Cloud.** Sign up at [oxygen-agent.com](https://oxygen-agent.com). The UI is the dashboard. Skills, integrations, Postgres, observability already wired. `oxygen login` connects the CLI to your workspace.
@@ -93,18 +106,9 @@ You get a real one for free:
 
 Live at [oxygen-agent.com](https://oxygen-agent.com) the second you sign up.
 
-## Content skills are included
+## The content side (paired install)
 
-280+ of you commented on the [Content Vault drop](https://github.com/timscheuerai/content-vault) last week. We didn't want to make you manage two installs.
-
-The content skills (`linkedin-copywriter`, `x-copywriter`, `youtube-script`, `long-form`, `lead-magnet-creator`, `repurpose`, `researcher`, `graphics-designer`, `launch-video`, `video-use`) install the same way:
-
-```bash
-git clone https://github.com/timscheuerai/content-vault.git \
-  ~/.claude/skills/content-vault
-```
-
-They work standalone on the local file system. They also pair with the Oxygen CLI: `/researcher` pulls signals from your Oxygen tables, `/lead-magnet-creator` writes Notion rows the same DB schema you use here.
+Already covered at the top: clone [content-vault](https://github.com/timscheuerai/content-vault) alongside, and `/researcher`, `/repurpose`, `/lead-magnet-creator` write to the same Notion Content DB schema this repo expects. One workspace covers inbound and outbound.
 
 ## What this is not
 
