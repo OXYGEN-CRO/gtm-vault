@@ -1,11 +1,11 @@
-# oxygen-gtm-vault
+# GTM Vault
 
 The outbound playbook we run at Oxygen. Open-sourced.
 
 Most "skills repos" are just markdown. Instructions for skills your agent doesn't actually have. You still have to wire Postgres, integrate 12 GTM tools, build a UI, and figure out where the runtime lives. We already did that part.
 
 ```bash
-npm install -g https://oxygen-agent.com/downloads/oxygen-cli-latest.tgz
+npm install -g @oxygen-agent/cli
 ```
 
 One command. After that you have:
@@ -38,7 +38,7 @@ Full content-vault docs: [github.com/timscheuerai/content-vault](https://github.
 **Local-first via Claude Code or Codex.** Install the CLI globally, sign in once, then call it from any agent loop. Tables and tool runs persist server-side so a Codex run on Monday and a Claude Code run on Friday share state.
 
 ```bash
-npm install -g https://oxygen-agent.com/downloads/oxygen-cli-latest.tgz
+npm install -g @oxygen-agent/cli
 oxygen login
 oxygen whoami --json
 ```
@@ -147,7 +147,7 @@ Full pricing: [oxygen-agent.com/pricing](https://oxygen-agent.com/pricing).
 **Install the CLI and ship your first table in 10 minutes.**
 
 ```bash
-npm install -g https://oxygen-agent.com/downloads/oxygen-cli-latest.tgz
+npm install -g @oxygen-agent/cli
 oxygen login
 ```
 
