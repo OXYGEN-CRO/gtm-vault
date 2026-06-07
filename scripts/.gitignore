@@ -1,0 +1,6 @@
+# Never commit lead data, exports, run logs, or secrets to the public vault.
+*.csv
+*.json
+*.log
+.env
+__pycache__/

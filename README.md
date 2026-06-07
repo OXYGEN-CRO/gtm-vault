@@ -93,6 +93,21 @@ These are not pseudocode. Same files Oxygen ships in `docs/examples/`.
 
 Drop any of these into your Oxygen workspace and they run as durable workflows with run history.
 
+### Outbound skills (in `skills/`)
+
+The actual Claude Code skills we drive the outbound motion with. Markdown skill packages. Drop them in `~/.claude/skills/` and call them by name.
+
+- [`cloudflare-domain-buyer`](./skills/cloudflare-domain-buyer). Buy Cloudflare Registrar domains from a CSV through a guarded script. Checks availability + price, previews the exact purchase, and only registers on an explicit confirm flag. The skill that bought 60+ cold-email domains in one session.
+- [`outbound-copywriter`](./skills/outbound-copywriter). Draft Instantly cold emails and HeyReach LinkedIn DMs in a real human voice. Grounded in live sent campaigns (`corpus.md`), runs every draft through a slop blacklist, and slots offers into the patterns that actually book calls.
+
+### Outbound scripts (in `scripts/`)
+
+The helper scripts behind the skills. Read keys from env (`CLOUDFLARE_API_TOKEN`, `INSTANTLY_API_KEY`, `OPENROUTER_API_KEY`, `INSTANTLY_CAMPAIGN_ID`). No data files committed. Bring your own lead lists.
+
+- [`cloudflare-bulk-domains.mjs`](./scripts/cloudflare-bulk-domains.mjs). The guarded bulk domain buyer the skill above calls. `check` → `purchase` preview → `--execute`.
+- [`sf-tam-ai-vars/generate.py`](./scripts/sf-tam-ai-vars/generate.py). Generate per-lead AI variables (ICP, angle) from a company CSV via OpenRouter. The personalization layer for a TAM blast.
+- [`sf-tam-ai-vars/push_instantly.py`](./scripts/sf-tam-ai-vars/push_instantly.py) · [`yc-instantly/push_yc.py`](./scripts/yc-instantly/push_yc.py). Push enriched rows into an Instantly campaign with custom variables, concurrent + retrying.
+
 ### The UI nobody else ships
 
 Skills repos don't have a UI. They ship `.md` and call it a day.
