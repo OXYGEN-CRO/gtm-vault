@@ -125,7 +125,7 @@ The helper scripts behind the skills. Read keys from env (`CLOUDFLARE_API_TOKEN`
 
 - [`cloudflare-bulk-domains.mjs`](./scripts/cloudflare-bulk-domains.mjs). The guarded bulk domain buyer the skill above calls. `check` → `purchase` preview → `--execute`.
 - [`sf-tam-ai-vars/generate.py`](./scripts/sf-tam-ai-vars/generate.py). Generate per-lead AI variables (ICP, angle) from a company CSV via OpenRouter. The personalization layer for a TAM blast.
-- [`sf-tam-ai-vars/push_instantly.py`](./scripts/sf-tam-ai-vars/push_instantly.py) · [`yc-instantly/push_yc.py`](./scripts/yc-instantly/push_yc.py). Push enriched rows into an Instantly campaign with custom variables, concurrent + retrying.
+- [`sf-tam-ai-vars/push_instantly.py`](./scripts/sf-tam-ai-vars/push_instantly.py). Push enriched rows into a campaign with custom variables, concurrent + retrying. Legacy: sending now runs on Oxygen's native sequencer ([`oxygen-sequencer-enroll`](./skills/oxygen-sequencer-enroll)), no Instantly seat.
 
 ### The UI nobody else ships
 

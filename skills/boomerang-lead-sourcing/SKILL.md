@@ -7,7 +7,7 @@ description: Source a tight, high-intent cold-email lead list from Apollo with B
 
 Get the lead list. This is the one **manual** step in the outbound flow: you scrape Apollo with **Boomerang**, then bring the CSV into Oxygen. The whole quality of the campaign is set here, so the job isn't "get a lot of leads," it's **narrow the list until every lead deserves a personalised email.**
 
-> Boomerang (Apollo scraper): `<BOOMERANG_URL — confirm exact link>`
+> Boomerang (Apollo scraper): https://www.theboomerang.co/
 
 ## Why narrow beats broad
 

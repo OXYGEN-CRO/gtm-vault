@@ -23,7 +23,7 @@ Default: a short **icebreaker** line that references one true, specific insight 
 
 1. **Pre-reqs.** The leads table exists (from [`boomerang-lead-sourcing`](../boomerang-lead-sourcing)), emails are enriched + verified, and there's at least one column with raw context to personalise from (title, company, ICP, signal). If context is thin, add an enrichment/research column first.
 
-2. **Set your BYOK key.** Add your OpenRouter key so the column bills to you at cost. Pick a cheap, capable model. Good picks: `deepseek/deepseek-chat`, `google/gemini-2.0-flash`, or similar. (Confirm the house default with Tim.)
+2. **Set your BYOK key.** Add your own OpenRouter key so the column bills to you at raw token cost (BYOK). Any cheap, capable model works (e.g. `deepseek/deepseek-chat`, `google/gemini-2.0-flash`), pick whichever you prefer.
 
 3. **Add the AI column.**
 
@@ -32,7 +32,7 @@ Default: a short **icebreaker** line that references one true, specific insight 
      --table "saas-founders-5-50-us" \
      --name personalization \
      --type ai \
-     --model "openrouter/deepseek/deepseek-chat" \
+     --model "openrouter/<your-cheap-model>" \
      --prompt-file /tmp/personalization-prompt.md
    ```
 
