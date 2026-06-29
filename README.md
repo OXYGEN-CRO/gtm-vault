@@ -71,6 +71,20 @@ If anything fails, the failing command + a structured error code is enough to de
 
 ## What's actually inside
 
+### The cheapest high-scale flow (end to end)
+
+The exact path we run: ~100k personalised emails / month for **under a cent each**. Every step is a skill or recipe in this repo, all driven from Claude Code on top of Oxygen:
+
+1. **Domains** — [`cloudflare-domain-buyer`](./skills/cloudflare-domain-buyer). Burner domains at cost.
+2. **Inboxes** — [`zapmail-inbox-setup`](./skills/zapmail-inbox-setup). ZapMail mailboxes (~$3/mo), 50/50 Google/Microsoft, DNS auto-set. Warm up natively in Oxygen.
+3. **Leads** — [`boomerang-lead-sourcing`](./skills/boomerang-lead-sourcing). Scrape one tight audience from Apollo via Boomerang, import to an Oxygen table.
+4. **Verify** — `oxygen enrich-column`. Waterfall enrichment, then MillionVerifier on every row + BounceBan on the catch-alls only.
+5. **Personalise** — [`personalize-ai-column`](./skills/personalize-ai-column). An Oxygen AI column on your own OpenRouter key (BYOK), grounded in the swipe file. ~$0.0008 / lead.
+6. **Send** — [`oxygen-sequencer-enroll`](./skills/oxygen-sequencer-enroll). Native Oxygen sequencer on the warmed mailboxes. No Instantly seat.
+7. **Close the loop** — [`cold-reply-to-crm-recipe`](./recipes/cold-reply-to-crm-recipe.ts). Every reply upserts to your CRM and logs which sequence converted.
+
+Roughly $830 / month in tooling at 100k sends, ~80% of it just inboxes. The personalisation is nearly free.
+
 ### The outbound primitives
 
 Cover the things every B2B GTM team rebuilds badly in Clay + Make + n8n:
@@ -83,12 +97,13 @@ Cover the things every B2B GTM team rebuilds badly in Clay + Make + n8n:
 
 Run any of these from the CLI, from the web UI, or from a Claude Code / Codex agent loop.
 
-### Three real recipes (in `recipes/`)
+### Four real recipes (in `recipes/`)
 
 These are not pseudocode. Same files Oxygen ships in `docs/examples/`.
 
 - [`lead-enrich-recipe.ts`](./recipes/lead-enrich-recipe.ts). Webhook → HubSpot contact upsert with idempotency. The minimal shape every signal-driven enrichment workflow has.
 - [`linkedin-engager-capture-recipe.ts`](./recipes/linkedin-engager-capture-recipe.ts). Pulls reactions + comments from your last 20 LinkedIn posts via Unipile, joins authors into a master engagers table, logs every touch. The engine behind "who reacted to my last 10 posts and is in my ICP".
+- [`cold-reply-to-crm-recipe.ts`](./recipes/cold-reply-to-crm-recipe.ts). Reply to a cold sequence → CRM contact upsert + a reply log that tells the next batch which sequence and angle earned the reply. Closes the loop on the flow above.
 - [`content-vault-repo-share-recipe.ts`](./recipes/content-vault-repo-share-recipe.ts). The recipe that DMs you this repo when you comment "GTM Vault" on the launch post. Yes, it's literally meta.
 
 Drop any of these into your Oxygen workspace and they run as durable workflows with run history.
@@ -98,6 +113,10 @@ Drop any of these into your Oxygen workspace and they run as durable workflows w
 The actual Claude Code skills we drive the outbound motion with. Markdown skill packages. Drop them in `~/.claude/skills/` and call them by name.
 
 - [`cloudflare-domain-buyer`](./skills/cloudflare-domain-buyer). Buy Cloudflare Registrar domains from a CSV through a guarded script. Checks availability + price, previews the exact purchase, and only registers on an explicit confirm flag. The skill that bought 60+ cold-email domains in one session.
+- [`zapmail-inbox-setup`](./skills/zapmail-inbox-setup). Stand up the sending mailboxes in ZapMail (~$3/mo) on your Cloudflare domains. 50/50 Google/Microsoft, 2-3 per domain, DNS auto-set, then imported into Oxygen and warmed natively.
+- [`boomerang-lead-sourcing`](./skills/boomerang-lead-sourcing). The one manual step: scrape one tight, high-intent audience from Apollo via Boomerang and import it into an Oxygen table. Narrow beats broad.
+- [`personalize-ai-column`](./skills/personalize-ai-column). Configure an Oxygen AI column that writes one true personalised line per lead, grounded in the `outbound-copywriter` swipe file and run on your own OpenRouter key (BYOK) for ~$0.0008 each.
+- [`oxygen-sequencer-enroll`](./skills/oxygen-sequencer-enroll). Enroll the verified, personalised list into Oxygen's native sequencer on the warmed mailboxes and launch. No Instantly, no second seat.
 - [`outbound-copywriter`](./skills/outbound-copywriter). Draft Instantly cold emails and HeyReach LinkedIn DMs in a real human voice. Grounded in live sent campaigns (`corpus.md`), runs every draft through a slop blacklist, and slots offers into the patterns that actually book calls.
 
 ### Outbound scripts (in `scripts/`)
